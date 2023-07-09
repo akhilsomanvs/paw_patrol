@@ -15,6 +15,7 @@ part 'pet_list_state.dart';
 class PetListBloc extends Bloc<PetListEvent, PetListState> {
   final PetRepository _petRepository;
   final List<PetModel> _petList = [];
+  final List<PetModel> _currentPetListByCategory = [];
   final List<PetModel> _recommendedPetList = [];
   PetCategory currentSelected = PetCategory.All;
 
@@ -29,7 +30,8 @@ class PetListBloc extends Bloc<PetListEvent, PetListState> {
         },
         (petList) {
           _petList.addAll(petList);
-          emit(PetListLoaded(_petList));
+          _setCurrentList(_petList);
+          _emitLoadedState(emit, _petList);
         },
       );
     });
@@ -37,15 +39,17 @@ class PetListBloc extends Bloc<PetListEvent, PetListState> {
     on<PetListCategoryEvent>((event, emit) async {
       PetCategory petCategory = event.petCategory;
       currentSelected = petCategory;
-      if (petCategory == PetCategory.All) {
-        emit(PetListLoaded(_petList));
-      } else if (petCategory == PetCategory.Recommended) {
-        final recommendedList = _getRecommendedList();
-        emit(PetListLoaded(recommendedList.toList()));
-      } else {
-        final list = _petList.where((element) => element.species.toLowerCase() == petCategory.name.toLowerCase()).toList();
-        emit(PetListLoaded(list));
-      }
+      final list = _getListByCategory(currentSelected);
+      _setCurrentList(list);
+      _emitLoadedState(emit, list);
+    });
+
+    on<PetListSearchEvent>((event, emit) async {
+      String query = event.query;
+      final list = _currentPetListByCategory.where((element) {
+        return element.name.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+      _emitLoadedState(emit, list);
     });
   }
 
@@ -74,5 +78,27 @@ class PetListBloc extends Bloc<PetListEvent, PetListState> {
 
   bool isCurrentlySelected(PetCategory petCategory) {
     return currentSelected == petCategory;
+  }
+
+  _setCurrentList(List<PetModel> list) {
+    _currentPetListByCategory.clear();
+    _currentPetListByCategory.addAll(list);
+  }
+
+  _emitLoadedState(Emitter<PetListState> emit, List<PetModel> list) {
+    emit(PetListLoaded(list));
+  }
+
+  List<PetModel> _getListByCategory(PetCategory petCategory) {
+    List<PetModel> list = [];
+    if (petCategory == PetCategory.All) {
+      list = _petList;
+    } else if (petCategory == PetCategory.Recommended) {
+      final recommendedList = _getRecommendedList();
+      list = recommendedList.toList();
+    } else {
+      list = _petList.where((element) => element.species.toLowerCase() == petCategory.name.toLowerCase()).toList();
+    }
+    return list;
   }
 }

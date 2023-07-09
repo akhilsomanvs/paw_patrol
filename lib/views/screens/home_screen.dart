@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paw_patrol/core/constants/data_constants.dart';
 import 'package:paw_patrol/domain/models/pet_model.dart';
@@ -18,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchTextController = TextEditingController();
 
   @override
   void initState() {
@@ -47,9 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(height: 8),
-                      const Card(
+                      Card(
                         child: TextField(
-                          decoration: InputDecoration(
+                          controller: _searchTextController,
+                          onChanged: (text) {
+                            BlocProvider.of<PetListBloc>(context).add(PetListSearchEvent(text));
+                          },
+                          decoration: const InputDecoration(
                             contentPadding: EdgeInsets.symmetric(horizontal: 8),
                             border: InputBorder.none,
                           ),
@@ -68,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTap: () {
+                                  _searchTextController.text = "";
                                   BlocProvider.of<PetListBloc>(context).add(PetListCategoryEvent(item));
                                 },
                                 child: PetCategoryWidget(
