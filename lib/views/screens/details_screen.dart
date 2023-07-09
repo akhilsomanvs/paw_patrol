@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paw_patrol/views/screens/image_screen.dart';
 
 import '../../domain/models/pet_model.dart';
 
@@ -15,6 +16,7 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
+          EdgeInsets contentPadding = EdgeInsets.symmetric(horizontal: mediaQuery.size.width * 0.07, vertical: 16);
           return Stack(
             children: [
               Column(
@@ -25,24 +27,36 @@ class DetailsScreen extends StatelessWidget {
                   Expanded(
                     child: Hero(
                       tag: petModel.id,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(40),
-                            bottomRight: Radius.circular(40),
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ImageScreen(imageUrl: petModel.imageURL,heroTag: petModel.id);
+                              },
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(40),
+                              bottomRight: Radius.circular(40),
+                            ),
+                            color: colorScheme.secondary,
                           ),
-                          color: colorScheme.secondary,
-                        ),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(40),
-                            bottomRight: Radius.circular(40),
-                          ),
-                          child: Image.network(
-                            petModel.imageURL,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(40),
+                              bottomRight: Radius.circular(40),
+                            ),
+                            child: Image.network(
+                              petModel.imageURL,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
                           ),
                         ),
                       ),
@@ -57,56 +71,82 @@ class DetailsScreen extends StatelessWidget {
               ),
 
               ///region Pet details
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: mediaQuery.size.width * 0.07),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(height: mediaQuery.size.height * 0.42),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                        decoration: BoxDecoration(
-                          color: colorScheme.background,
-                          borderRadius: BorderRadius.circular(20),
+              IgnorePointer(
+                child: Padding(
+                  padding: contentPadding,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(height: mediaQuery.size.height * 0.42),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: colorScheme.background,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                petModel.name,
+                                style: theme.textTheme.headlineLarge!.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                petModel.character,
+                                style: theme.textTheme.bodySmall!.copyWith(color: colorScheme.primary),
+                              ),
+                              const SizedBox(height: 32),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TitleValueWidget(title: "Price", value: petModel.price.toString()),
+                                  TitleValueWidget(title: "Age", value: petModel.age.toString()),
+                                  TitleValueWidget(title: "Sex", value: petModel.sex.toString()),
+                                  TitleValueWidget(title: "Color", value: petModel.color.toString(), cardColor: colorScheme.primary, textColor: colorScheme.background),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              Container(height: 1, width: double.infinity, color: colorScheme.primary.withOpacity(0.3)),
+                              const SizedBox(height: 16),
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              petModel.name,
-                              style: theme.textTheme.headlineLarge!.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              petModel.character,
-                              style: theme.textTheme.bodySmall!.copyWith(color: colorScheme.primary),
-                            ),
-                            const SizedBox(height: 32),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TitleValueWidget(title: "Price", value: petModel.price.toString()),
-                                TitleValueWidget(title: "Age", value: petModel.age.toString()),
-                                TitleValueWidget(title: "Sex", value: petModel.sex.toString()),
-                                TitleValueWidget(title: "Color", value: petModel.color.toString(), cardColor: colorScheme.primary, textColor: colorScheme.background),
-                              ],
-                            ),
-                            const SizedBox(height: 16),
-                            Container(height: 1, width: double.infinity, color: colorScheme.primary.withOpacity(0.3)),
-                            const SizedBox(height: 16),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
 
               ///endregion
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: contentPadding,
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 58,
+                      child: FilledButton(
+                        onPressed: () {},
+                        style: FilledButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          "Adopt Me",
+                          style: theme.textTheme.bodyLarge!.copyWith(color: colorScheme.background),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           );
         },

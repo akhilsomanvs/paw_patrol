@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: SizedBox(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
             child: SizedBox(
               child: BlocBuilder<PetListBloc, PetListState>(
                 builder: (context, blocState) {
