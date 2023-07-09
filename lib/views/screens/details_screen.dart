@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paw_patrol/views/bloc/petAdoptionBloc/pet_adoption_bloc.dart';
 import 'package:paw_patrol/views/screens/image_screen.dart';
+import 'package:paw_patrol/views/widgets/adotped_badge_widget.dart';
 import 'package:paw_patrol/views/widgets/dialogs/custom_dialog_widget.dart';
 
 import '../../domain/models/pet_model.dart';
@@ -74,11 +75,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               bottomLeft: Radius.circular(40),
                               bottomRight: Radius.circular(40),
                             ),
-                            child: Image.network(
-                              widget.petModel.imageURL,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
+                            child: ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                widget.petModel.isAdopted ? Colors.grey : Colors.transparent,
+                                BlendMode.saturation,
+                              ),
+                              child: Image.network(
+                                widget.petModel.imageURL,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              ),
                             ),
                           ),
                         ),
@@ -115,48 +122,59 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 child: Padding(
                   padding: contentPadding,
                   child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                    child: Stack(
                       children: [
-                        SizedBox(height: mediaQuery.size.height * 0.42),
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: colorScheme.background,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.petModel.name,
-                                style: theme.textTheme.headlineLarge!.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w600),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: mediaQuery.size.height * 0.42),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                              decoration: BoxDecoration(
+                                color: colorScheme.background,
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              const SizedBox(height: 16),
-                              Text(
-                                widget.petModel.character,
-                                style: theme.textTheme.bodySmall!.copyWith(color: colorScheme.primary),
-                              ),
-                              const SizedBox(height: 32),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TitleValueWidget(title: "Price", value: widget.petModel.price.toString()),
-                                  TitleValueWidget(title: "Age", value: widget.petModel.age.toString()),
-                                  TitleValueWidget(title: "Sex", value: widget.petModel.sex.toString()),
-                                  TitleValueWidget(title: "Color", value: widget.petModel.color.toString(), cardColor: colorScheme.primary, textColor: colorScheme.background),
+                                  Text(
+                                    widget.petModel.name,
+                                    style: theme.textTheme.headlineLarge!.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    widget.petModel.character,
+                                    style: theme.textTheme.bodySmall!.copyWith(color: colorScheme.primary),
+                                  ),
+                                  const SizedBox(height: 32),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TitleValueWidget(title: "Price", value: widget.petModel.price.toString()),
+                                      TitleValueWidget(title: "Age", value: widget.petModel.age.toString()),
+                                      TitleValueWidget(title: "Sex", value: widget.petModel.sex.toString()),
+                                      TitleValueWidget(title: "Color", value: widget.petModel.color.toString(), cardColor: colorScheme.primary, textColor: colorScheme.background),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Container(height: 1, width: double.infinity, color: colorScheme.primary.withOpacity(0.3)),
+                                  const SizedBox(height: 16),
                                 ],
                               ),
-                              const SizedBox(height: 16),
-                              Container(height: 1, width: double.infinity, color: colorScheme.primary.withOpacity(0.3)),
-                              const SizedBox(height: 16),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(height: 8),
+                          ],
                         ),
-                        const SizedBox(height: 8),
+                        widget.petModel.isAdopted
+                            ? const Positioned.fill(
+                                child: Center(
+                                  child: AdoptedBadgeWidget(),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
                       ],
                     ),
                   ),
@@ -173,7 +191,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       listener: (context, state) {
                         if (state is PetAdoptedState) {
                           _confettiController.play();
-                        } else if (state is PetAdoptionLoadingState) {
                           showDialog(
                             context: context,
                             builder: (context) => CustomDialogBox(
@@ -184,16 +201,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               },
                             ),
                           );
-                        }
+                        } else if (state is PetAdoptionLoadingState) {}
                       },
                       child: SizedBox(
                         width: double.infinity,
                         height: 58,
                         child: FilledButton(
                           onPressed: () {
-                            // if(context.read<PetAdoptionBloc>().state != PetAdoptionListLoadedState) {
-                            BlocProvider.of<PetAdoptionBloc>(context).add(AdoptPetEvent(widget.petModel));
-                            // }
+                            if (!widget.petModel.isAdopted) {
+                              BlocProvider.of<PetAdoptionBloc>(context).add(AdoptPetEvent(widget.petModel));
+                            }
                           },
                           style: FilledButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -201,7 +218,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             ),
                           ),
                           child: Text(
-                            "Adopt Me",
+                            widget.petModel.isAdopted ? "Already Adopted" : "Adopt Me",
                             style: theme.textTheme.bodyLarge!.copyWith(color: colorScheme.background),
                           ),
                         ),

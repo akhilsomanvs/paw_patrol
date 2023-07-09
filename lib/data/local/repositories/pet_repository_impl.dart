@@ -44,7 +44,16 @@ class PetRepositoryImpl implements PetRepository {
         imageURL: petModel.imageURL,
         sex: petModel.sex,
         color: petModel.color,
-        isAdopted: petModel.isAdopted ? 1 : 0);
+        isAdopted: 1);
     return await _petDao.addNewPet(petEntity);
+  }
+
+  @override
+  Future<Either<Failure, PetModel>> getPetById(int petId) async {
+    final petEntity = await _petDao.getPetById(petId);
+    if (petEntity != null) {
+      return Right(petEntity);
+    }
+    return Left(CacheFailure());
   }
 }

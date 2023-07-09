@@ -101,7 +101,7 @@ class DataConstants {
       "price": 60,
       "character": "Smokey is a calm and independent cat. He enjoys lounging in sunny spots and observing his surroundings.",
       "species": "cat",
-      "imageURL": "https://www.thisiscolossal.com/wp-content/uploads/2022/07/vogelsang-10.jpg",
+      "imageURL": "https://expertphotography.b-cdn.net/wp-content/uploads/2018/04/close-up-kitten.jpg",
       "sex": "male",
       "color": "gray"
     }),
@@ -145,7 +145,7 @@ class DataConstants {
       "price": 55,
       "character": "Milo is an adventurous and curious cat. He loves exploring new places and chasing after toys.",
       "species": "cat",
-      "imageURL": "https://www.thisiscolossal.com/wp-content/uploads/2022/07/vogelsang-10.jpg",
+      "imageURL": "https://expertphotography.b-cdn.net/wp-content/uploads/2020/03/cat-photography-fun.jpg",
       "sex": "male",
       "color": "tabby"
     }),
@@ -277,7 +277,7 @@ class DataConstants {
       "price": 60,
       "character": "Misty is a graceful and affectionate cat. She loves to be pampered and enjoys cuddling with her human friends.",
       "species": "cat",
-      "imageURL": "https://www.thisiscolossal.com/wp-content/uploads/2022/07/vogelsang-8.jpg",
+      "imageURL": "https://expertphotography.b-cdn.net/wp-content/uploads/2020/03/cat-photography-yawn.jpg",
       "sex": "female",
       "color": "gray"
     }),
@@ -321,7 +321,7 @@ class DataConstants {
       "price": 75,
       "character": "Lily is an elegant and gentle cat. She enjoys basking in the sunlight and loves a cozy lap to curl up on.",
       "species": "cat",
-      "imageURL": "https://www.thisiscolossal.com/wp-content/uploads/2022/07/vogelsang-8.jpg",
+      "imageURL": "https://images.pexels.com/photos/10188725/pexels-photo-10188725.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "sex": "female",
       "color": "white"
     }),

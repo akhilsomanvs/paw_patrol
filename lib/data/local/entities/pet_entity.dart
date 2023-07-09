@@ -51,6 +51,8 @@ class PetEntity extends PetModel implements BaseDBEntity {
   }
 
   //endregion
+  @override
+  List<Object?> get props => [id, name, age, price, character, species, imageURL, isAdopted, sex, color];
 
   //region Local DB methods
 
@@ -84,7 +86,7 @@ class PetEntity extends PetModel implements BaseDBEntity {
       _colCharacter: character,
       _colSpecies: species,
       _colImageURL: imageURL,
-      _colIsAdopted: isAdopted,
+      _colIsAdopted: isAdopted ? 1 : 0,
       _colSex: sex,
       _colColor: color,
     };
@@ -110,13 +112,16 @@ class PetEntity extends PetModel implements BaseDBEntity {
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['name'] = name;
-    _data['age'] = age;
-    _data['price'] = price;
-    _data['character'] = character;
-    _data['species'] = species;
-    _data['imageURL'] = imageURL;
+    _data[BaseDBEntity.colId] = id;
+    _data[_colName] = name;
+    _data[_colAge] = age;
+    _data[_colPrice] = price;
+    _data[_colCharacter] = character;
+    _data[_colSpecies] = species;
+    _data[_colImageURL] = imageURL;
+    _data[_colIsAdopted] = isAdopted;
+    _data[_colSex] = sex;
+    _data[_colColor] = color;
     return _data;
   }
 //endregion

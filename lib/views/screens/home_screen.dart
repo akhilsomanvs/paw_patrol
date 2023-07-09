@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paw_patrol/core/constants/data_constants.dart';
 import 'package:paw_patrol/domain/models/pet_model.dart';
+import 'package:paw_patrol/views/bloc/petAdoptionBloc/pet_adoption_bloc.dart';
 import 'package:paw_patrol/views/bloc/petListBloc/pet_list_bloc.dart';
 import 'package:paw_patrol/views/screens/details_screen.dart';
 import 'package:paw_patrol/views/widgets/custom_app_bar.dart';
@@ -36,83 +37,89 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
             child: SizedBox(
-              child: BlocBuilder<PetListBloc, PetListState>(
-                builder: (context, blocState) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Search",
-                        style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(height: 8),
-                      Card(
-                        child: TextField(
-                          controller: _searchTextController,
-                          onChanged: (text) {
-                            BlocProvider.of<PetListBloc>(context).add(PetListSearchEvent(text));
-                          },
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                            border: InputBorder.none,
+              child: BlocBuilder<PetAdoptionBloc, PetAdoptionState>(
+                builder: (context, petAdoptionState) {
+                  return BlocBuilder<PetListBloc, PetListState>(
+                    builder: (context, petListBlocState) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Search",
+                            style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500),
                           ),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      SizedBox(
-                        height: 140,
-                        child: ListView.builder(
-                          itemCount: PetCategory.values.length,
-                          scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.zero,
-                          itemBuilder: (context, index) {
-                            var item = PetCategory.values[index];
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  _searchTextController.text = "";
-                                  BlocProvider.of<PetListBloc>(context).add(PetListCategoryEvent(item));
-                                },
-                                child: PetCategoryWidget(
-                                  title: item.name,
-                                  imagePath: DataConstants.getCategoryIcon(item),
-                                  count: BlocProvider.of<PetListBloc>(context).getCountByCategory(item),
-                                  isSelected: BlocProvider.of<PetListBloc>(context).isCurrentlySelected(item),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Expanded(
-                        flex: 1,
-                        child: Builder(
-                          builder: (context) {
-                            if (blocState is PetListLoaded) {
-                              final list = blocState.modelList;
-                              return ListView.builder(
-                                itemCount: list.length,
-                                itemBuilder: (context, index) {
-                                  var petModel = list[index];
-                                  return PetCardWidget(
-                                    petModel: petModel,
-                                    onCardTap: (model) {
-                                      _navigateToDetails(context, model);
+                          const SizedBox(height: 8),
+                          Card(
+                            child: TextField(
+                              controller: _searchTextController,
+                              onChanged: (text) {
+                                BlocProvider.of<PetListBloc>(context).add(PetListSearchEvent(text));
+                              },
+                              decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 8), border: InputBorder.none, hintText: "Type here"),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            height: 140,
+                            child: ListView.builder(
+                              itemCount: PetCategory.values.length,
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.zero,
+                              itemBuilder: (context, index) {
+                                var item = PetCategory.values[index];
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _searchTextController.text = "";
+                                      BlocProvider.of<PetListBloc>(context).add(PetListCategoryEvent(item));
                                     },
-                                    onAdoptTap: (model) {},
+                                    child: PetCategoryWidget(
+                                      title: item.name,
+                                      imagePath: DataConstants.getCategoryIcon(item),
+                                      count: BlocProvider.of<PetListBloc>(context).getCountByCategory(item),
+                                      isSelected: BlocProvider.of<PetListBloc>(context).isCurrentlySelected(item),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Expanded(
+                            flex: 1,
+                            child: Builder(
+                              builder: (context) {
+                                if (petListBlocState is PetListLoaded) {
+                                  final list = petListBlocState.modelList;
+                                  return ListView.builder(
+                                    itemCount: list.length,
+                                    itemBuilder: (context, index) {
+                                      var petModel = list[index];
+                                      return PetCardWidget(
+                                        petModel: petModel,
+                                        onCardTap: (model) {
+                                          final isAdopted = context.read<PetAdoptionBloc>().isAdopted(petModel);
+                                          model.isAdopted = isAdopted;
+                                          _navigateToDetails(context, model);
+                                        },
+                                        onAdoptTap: (model) {
+                                          context.read<PetAdoptionBloc>().add(AdoptPetEvent(petModel));
+                                        },
+                                        isAdopted: context.read<PetAdoptionBloc>().isAdopted(petModel),
+                                      );
+                                    },
                                   );
-                                },
-                              );
-                            } else {
-                              return Container();
-                            }
-                          },
-                        ),
-                      ),
-                    ],
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
               ),

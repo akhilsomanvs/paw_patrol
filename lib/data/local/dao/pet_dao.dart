@@ -5,6 +5,8 @@ abstract class PetDao {
   Future<List<PetEntity>>? getAllPet();
 
   Future<int> addNewPet(PetEntity petEntity);
+
+  Future<PetEntity?> getPetById(int petId);
 }
 
 class PetDaoImpl implements PetDao {
@@ -38,7 +40,8 @@ class PetDaoImpl implements PetDao {
     return await _dbManager.update(model);
   }
 
-  Future<PetEntity?> getPetByID(int id) async {
+  @override
+  Future<PetEntity?> getPetById(int id) async {
     List<Map<String, dynamic>> items = await _dbManager.getByID(_petEntityInstance.tableName, id);
     if (items.isNotEmpty) {
       return _getPetModelFromMap(items.first);

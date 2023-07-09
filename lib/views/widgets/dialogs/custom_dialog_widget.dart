@@ -42,10 +42,10 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           margin: EdgeInsets.only(top: avatarRadius),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            color: Colors.white,
+            color: colorScheme.surface,
             borderRadius: BorderRadius.circular(padding),
-            boxShadow: const [
-              BoxShadow(color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
+            boxShadow: [
+              BoxShadow(color: colorScheme.primary.withOpacity(0.5), offset: Offset(0, 10), blurRadius: 10),
             ],
           ),
           child: Column(
@@ -53,14 +53,18 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
             children: <Widget>[
               Text(
                 widget.title,
-                style: theme.textTheme.bodyMedium!.copyWith(fontSize: 22, fontWeight: FontWeight.w600),
+                style: theme.textTheme.bodyMedium!.copyWith(
+                  color: colorScheme.primary,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const SizedBox(
                 height: 15,
               ),
               Text(
                 widget.descriptions,
-                style: theme.textTheme.bodyMedium!.copyWith(fontSize: 14),
+                style: theme.textTheme.bodyMedium!.copyWith(fontSize: 14,color: colorScheme.primary,),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -73,9 +77,9 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                     Navigator.of(context).pop();
                     widget.onOkTap?.call();
                   },
-                  child: const Text(
+                  child: Text(
                     "Ok",
-                    style: TextStyle(fontSize: 18),
+                    style: theme.textTheme.bodyMedium!.copyWith(fontSize: 18,color: colorScheme.primary,),
                   ),
                 ),
               ),

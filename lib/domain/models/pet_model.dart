@@ -21,7 +21,7 @@ class PetModel extends Equatable {
   late final String character;
   late final String species;
   late final String imageURL;
-  late final bool isAdopted;
+  late bool isAdopted;
   late final String sex;
   late final String color;
 

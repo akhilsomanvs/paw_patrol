@@ -8,4 +8,6 @@ abstract class PetRepository {
   Future<Either<Failure, List<PetModel>>> getAllAdoptedPets();
 
   Future<int> adoptPet(PetModel petModel);
+
+  Future<Either<Failure, PetModel>> getPetById(int petId);
 }

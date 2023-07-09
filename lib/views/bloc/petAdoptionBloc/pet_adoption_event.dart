@@ -12,3 +12,9 @@ class AdoptPetEvent extends PetAdoptionEvent {
 class ClearAdoptionListEvent extends PetAdoptionEvent {}
 
 class GetAdoptionListEvent extends PetAdoptionEvent {}
+
+class CheckAdoptionEvent extends PetAdoptionEvent {
+  final int petId;
+
+  CheckAdoptionEvent(this.petId);
+}

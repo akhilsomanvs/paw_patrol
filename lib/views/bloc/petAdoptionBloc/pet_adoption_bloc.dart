@@ -9,6 +9,7 @@ part 'pet_adoption_state.dart';
 
 class PetAdoptionBloc extends Bloc<PetAdoptionEvent, PetAdoptionState> {
   final PetRepository _petRepository;
+  final Map<int, PetModel> _adoptedPetsList = {};
 
   PetAdoptionBloc(this._petRepository) : super(PetAdoptionInitialState()) {
     on<AdoptPetEvent>((event, emit) async {
@@ -16,7 +17,23 @@ class PetAdoptionBloc extends Bloc<PetAdoptionEvent, PetAdoptionState> {
       final petModel = event.petModel;
       final id = await _petRepository.adoptPet(petModel);
       emit(PetAdoptedState());
+      add(GetAdoptionListEvent());
     });
+
+    on<CheckAdoptionEvent>((event, emit) async {
+      emit(PetAdoptionLoadingState());
+      final petId = event.petId;
+      final result = await _petRepository.getPetById(petId);
+      result.fold(
+        (error) {
+          emit(PetAdoptionErrorState());
+        },
+        (petModel) {
+          emit(PetAlreadyAdoptedState(petModel));
+        },
+      );
+    });
+
     on<GetAdoptionListEvent>((event, emit) async {
       emit(PetAdoptionLoadingState());
       final result = await _petRepository.getAllAdoptedPets();
@@ -25,9 +42,17 @@ class PetAdoptionBloc extends Bloc<PetAdoptionEvent, PetAdoptionState> {
           emit(PetAdoptionErrorState());
         },
         (list) {
+          _adoptedPetsList.clear();
+          for (var petModel in list) {
+            _adoptedPetsList[petModel.id] = petModel;
+          }
           emit(PetAdoptionListLoadedState(list));
         },
       );
     });
+  }
+
+  bool isAdopted(PetModel petModel) {
+    return _adoptedPetsList.keys.contains(petModel.id);
   }
 }
