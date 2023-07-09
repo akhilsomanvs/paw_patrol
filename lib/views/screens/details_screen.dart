@@ -1,12 +1,35 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paw_patrol/views/bloc/petAdoptionBloc/pet_adoption_bloc.dart';
 import 'package:paw_patrol/views/screens/image_screen.dart';
+import 'package:paw_patrol/views/widgets/dialogs/custom_dialog_widget.dart';
 
 import '../../domain/models/pet_model.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   const DetailsScreen({required this.petModel, super.key});
 
   final PetModel petModel;
+
+  @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  late final ConfettiController _confettiController;
+
+  @override
+  void initState() {
+    _confettiController = ConfettiController(duration: const Duration(seconds: 4));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +49,14 @@ class DetailsScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Hero(
-                      tag: petModel.id,
+                      tag: widget.petModel.id,
                       child: GestureDetector(
-                        behavior: HitTestBehavior.translucent,
+                        behavior: HitTestBehavior.opaque,
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) {
-                                return ImageScreen(imageUrl: petModel.imageURL,heroTag: petModel.id);
+                                return ImageScreen(imageUrl: widget.petModel.imageURL, heroTag: widget.petModel.id);
                               },
                             ),
                           );
@@ -52,7 +75,7 @@ class DetailsScreen extends StatelessWidget {
                               bottomRight: Radius.circular(40),
                             ),
                             child: Image.network(
-                              petModel.imageURL,
+                              widget.petModel.imageURL,
                               fit: BoxFit.cover,
                               width: double.infinity,
                               height: double.infinity,
@@ -68,6 +91,23 @@ class DetailsScreen extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: CircleAvatar(
+                    backgroundColor: colorScheme.surface,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ),
               ),
 
               ///region Pet details
@@ -91,12 +131,12 @@ class DetailsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                petModel.name,
+                                widget.petModel.name,
                                 style: theme.textTheme.headlineLarge!.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w600),
                               ),
                               const SizedBox(height: 16),
                               Text(
-                                petModel.character,
+                                widget.petModel.character,
                                 style: theme.textTheme.bodySmall!.copyWith(color: colorScheme.primary),
                               ),
                               const SizedBox(height: 32),
@@ -104,10 +144,10 @@ class DetailsScreen extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TitleValueWidget(title: "Price", value: petModel.price.toString()),
-                                  TitleValueWidget(title: "Age", value: petModel.age.toString()),
-                                  TitleValueWidget(title: "Sex", value: petModel.sex.toString()),
-                                  TitleValueWidget(title: "Color", value: petModel.color.toString(), cardColor: colorScheme.primary, textColor: colorScheme.background),
+                                  TitleValueWidget(title: "Price", value: widget.petModel.price.toString()),
+                                  TitleValueWidget(title: "Age", value: widget.petModel.age.toString()),
+                                  TitleValueWidget(title: "Sex", value: widget.petModel.sex.toString()),
+                                  TitleValueWidget(title: "Color", value: widget.petModel.color.toString(), cardColor: colorScheme.primary, textColor: colorScheme.background),
                                 ],
                               ),
                               const SizedBox(height: 16),
@@ -116,6 +156,7 @@ class DetailsScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   ),
@@ -128,22 +169,57 @@ class DetailsScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: contentPadding,
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 58,
-                      child: FilledButton(
-                        onPressed: () {},
-                        style: FilledButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                    child: BlocListener<PetAdoptionBloc, PetAdoptionState>(
+                      listener: (context, state) {
+                        if (state is PetAdoptedState) {
+                          _confettiController.play();
+                        } else if (state is PetAdoptionLoadingState) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => CustomDialogBox(
+                              title: 'Success',
+                              descriptions: "You've now adopted ${widget.petModel.name}",
+                              onOkTap: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          );
+                        }
+                      },
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 58,
+                        child: FilledButton(
+                          onPressed: () {
+                            // if(context.read<PetAdoptionBloc>().state != PetAdoptionListLoadedState) {
+                            BlocProvider.of<PetAdoptionBloc>(context).add(AdoptPetEvent(widget.petModel));
+                            // }
+                          },
+                          style: FilledButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          "Adopt Me",
-                          style: theme.textTheme.bodyLarge!.copyWith(color: colorScheme.background),
+                          child: Text(
+                            "Adopt Me",
+                            style: theme.textTheme.bodyLarge!.copyWith(color: colorScheme.background),
+                          ),
                         ),
                       ),
                     ),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: ConfettiWidget(
+                    confettiController: _confettiController,
+                    blastDirectionality: BlastDirectionality.explosive,
+                    numberOfParticles: 40,
+                    maxBlastForce: 40,
+                    shouldLoop: false,
+                    colors: const [Colors.green, Colors.blue, Colors.pink, Colors.orange, Colors.purple],
                   ),
                 ),
               ),

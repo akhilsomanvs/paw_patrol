@@ -19,7 +19,12 @@ class ImageScreen extends StatelessWidget {
           child: Center(
             child: InteractiveViewer(
               clipBehavior: Clip.none,
-              child: Image.network(imageUrl),
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.contain,
+                height: double.infinity,
+                width: double.infinity,
+              ),
             ),
           ),
         ),

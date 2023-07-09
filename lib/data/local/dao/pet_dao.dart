@@ -3,6 +3,8 @@ import '../db_manager.dart';
 
 abstract class PetDao {
   Future<List<PetEntity>>? getAllPet();
+
+  Future<int> addNewPet(PetEntity petEntity);
 }
 
 class PetDaoImpl implements PetDao {
@@ -17,8 +19,9 @@ class PetDaoImpl implements PetDao {
   }
 
   //region CRUD
-  Future<int> addNewPet(PetEntity model) {
-    return _dbManager.insert(model);
+  @override
+  Future<int> addNewPet(PetEntity model) async {
+    return await _dbManager.insert(model);
   }
 
   @override

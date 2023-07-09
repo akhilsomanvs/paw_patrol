@@ -3,12 +3,18 @@ part of 'pet_adoption_bloc.dart';
 @immutable
 abstract class PetAdoptionState {}
 
-class PetAdoptionInitial extends PetAdoptionState {}
+class PetAdoptionInitialState extends PetAdoptionState {}
 
-class PetAdoptionListLoading extends PetAdoptionState {}
+class PetAdoptionLoadingState extends PetAdoptionState {}
 
-class PetAdoptionListLoaded extends PetAdoptionState {
+class PetAdoptionErrorState extends PetAdoptionState {}
+
+class PetAdoptedState extends PetAdoptionState {}
+
+class PetAdoptionListLoadingState extends PetAdoptionState {}
+
+class PetAdoptionListLoadedState extends PetAdoptionState {
   final List<PetModel> list;
 
-  PetAdoptionListLoaded(this.list);
+  PetAdoptionListLoadedState(this.list);
 }
