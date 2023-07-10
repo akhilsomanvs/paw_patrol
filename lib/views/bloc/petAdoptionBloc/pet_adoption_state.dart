@@ -8,7 +8,13 @@ class PetAdoptionInitialState extends PetAdoptionState {}
 class PetAdoptionLoadingState extends PetAdoptionState {}
 
 class PetAdoptionErrorState extends PetAdoptionState {}
-class PetAdoptedState extends PetAdoptionState {}
+
+class PetAdoptedState extends PetAdoptionState {
+  final PetModel petModel;
+
+  PetAdoptedState(this.petModel);
+}
+
 class PetAlreadyAdoptedState extends PetAdoptionState {
   final PetModel petModel;
 

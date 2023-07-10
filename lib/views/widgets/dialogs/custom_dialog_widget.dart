@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,6 +20,19 @@ class CustomDialogBox extends StatefulWidget {
 class _CustomDialogBoxState extends State<CustomDialogBox> {
   final double padding = 20;
   final double avatarRadius = 45;
+  late final ConfettiController _confettiController;
+
+  @override
+  void initState() {
+    _confettiController = ConfettiController(duration: const Duration(seconds: 4));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +49,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
   Widget contentBox(context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
+    _confettiController.play();
     return Stack(
       children: <Widget>[
         Container(
@@ -64,7 +79,10 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               ),
               Text(
                 widget.descriptions,
-                style: theme.textTheme.bodyMedium!.copyWith(fontSize: 14,color: colorScheme.primary,),
+                style: theme.textTheme.bodyMedium!.copyWith(
+                  fontSize: 14,
+                  color: colorScheme.primary,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -79,7 +97,10 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                   },
                   child: Text(
                     "Ok",
-                    style: theme.textTheme.bodyMedium!.copyWith(fontSize: 18,color: colorScheme.primary,),
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                      fontSize: 18,
+                      color: colorScheme.primary,
+                    ),
                   ),
                 ),
               ),
@@ -93,6 +114,19 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
             backgroundColor: colorScheme.surface,
             radius: avatarRadius,
             child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(avatarRadius)), child: SvgPicture.asset("assets/icons/ic_all_pets.svg")),
+          ),
+        ),
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              numberOfParticles: 40,
+              maxBlastForce: 40,
+              shouldLoop: false,
+              colors: const [Colors.green, Colors.blue, Colors.pink, Colors.orange, Colors.purple],
+            ),
           ),
         ),
       ],

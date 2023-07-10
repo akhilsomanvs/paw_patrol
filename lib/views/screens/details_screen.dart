@@ -18,20 +18,6 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  late final ConfettiController _confettiController;
-
-  @override
-  void initState() {
-    _confettiController = ConfettiController(duration: const Duration(seconds: 4));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _confettiController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -190,7 +176,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     child: BlocListener<PetAdoptionBloc, PetAdoptionState>(
                       listener: (context, state) {
                         if (state is PetAdoptedState) {
-                          _confettiController.play();
                           showDialog(
                             context: context,
                             builder: (context) => CustomDialogBox(
@@ -224,19 +209,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: ConfettiWidget(
-                    confettiController: _confettiController,
-                    blastDirectionality: BlastDirectionality.explosive,
-                    numberOfParticles: 40,
-                    maxBlastForce: 40,
-                    shouldLoop: false,
-                    colors: const [Colors.green, Colors.blue, Colors.pink, Colors.orange, Colors.purple],
                   ),
                 ),
               ),
