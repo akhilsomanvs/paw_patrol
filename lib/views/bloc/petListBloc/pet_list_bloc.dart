@@ -19,6 +19,8 @@ class PetListBloc extends Bloc<PetListEvent, PetListState> {
   final List<PetModel> _recommendedPetList = [];
   PetCategory currentSelected = PetCategory.All;
 
+  int currentPage = 0;
+
   PetListBloc(this._petRepository) : super(PetListInitialState()) {
     on<PetListInitialEvent>((event, emit) async {
       currentSelected = PetCategory.All;
@@ -50,6 +52,19 @@ class PetListBloc extends Bloc<PetListEvent, PetListState> {
         return element.name.toLowerCase().contains(query.toLowerCase());
       }).toList();
       _emitLoadedState(emit, list);
+    });
+
+    on<PetListNextPageEvent>((event, emit) async {
+      final result = await _petRepository.getNextPageList(++currentPage);
+      result.fold(
+        (error) {
+          emit(PetListError());
+        },
+        (list) {
+          // _petList.addAll(list);
+          // _emitLoadedState(emit, _petList);
+        },
+      );
     });
   }
 

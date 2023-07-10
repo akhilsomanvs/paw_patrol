@@ -120,9 +120,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     final list = petListBlocState.modelList;
                                     return ListView.builder(
                                       itemCount: list.length,
+                                      shrinkWrap: true,
                                       itemBuilder: (context, index) {
                                         var petModel = list[index];
                                         return PetCardWidget(
+                                          key: Key("${petModel.id}"),
                                           petModel: petModel,
                                           onCardTap: (model) {
                                             final isAdopted = context.read<PetAdoptionBloc>().isAdopted(petModel);
@@ -157,14 +159,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void pagination() {
-    /*if ((_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) && (_subCategoryModel.products.length < total)) {
-      setState(() {
-        isLoading = true;
-        page += 1;
-        //add api for load the more data according to new page
-      });
-    }*/
+    if ((_scrollController.position.pixels == _scrollController.position.maxScrollExtent)) {
+
+    }
   }
 
   void _navigateToDetails(BuildContext context, PetModel petModel) {

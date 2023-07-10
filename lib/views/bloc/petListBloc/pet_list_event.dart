@@ -5,6 +5,12 @@ abstract class PetListEvent {}
 
 class PetListInitialEvent extends PetListEvent {}
 
+class PetListNextPageEvent extends PetListEvent {
+  final int page;
+
+  PetListNextPageEvent(this.page);
+}
+
 class PetListCategoryEvent extends PetListEvent {
   final PetCategory petCategory;
 

@@ -22,7 +22,9 @@ void main() {
       "price": 100,
       "character": "Fluffy is a playful and energetic dog. She loves chasing balls and going for long walks in the park.",
       "species": "dog",
-      "imageURL": "https://example.com/fluffy.jpg"
+      "imageURL": "https://images.squarespace-cdn.com/content/v1/5c336783f2e6b11a9d3b5693/1655067695088-ENM7V3W64DVOJ66N5DMC/220327_vretenar1129.jpg?format=750w",
+      "sex": "female",
+      "color": "white"
     }),
     PetEntity.fromJson(const {
       "id": 2,
@@ -31,8 +33,10 @@ void main() {
       "price": 50,
       "character": "Whiskers is a curious and friendly cat. He enjoys exploring new places and cuddling up on laps.",
       "species": "cat",
-      "imageURL": "https://example.com/whiskers.jpg"
-    }),
+      "imageURL": "https://www.thisiscolossal.com/wp-content/uploads/2022/07/vogelsang-2.jpg",
+      "sex": "male",
+      "color": "black"
+    })
   ];
 
   setUp(() {
@@ -40,12 +44,14 @@ void main() {
     petRepository = PetRepositoryImpl(mockPetDao);
   });
 
-  test("Get list of All adopted pets", () async {
-    when(mockPetDao.getAllPet()).thenAnswer((_) async {
-      return _petList;
+  group("Pet List", () {
+    test("Should return a list of PetModel when fetching the list of adopted pets", () async {
+      when(mockPetDao.getAllAdoptedPets()).thenAnswer((_) async {
+        return _petList;
+      });
+      final result = await petRepository.getAllAdoptedPets();
+      verify(mockPetDao.getAllAdoptedPets());
+      expect(result, equals(Right(_petList as List<PetModel>)));
     });
-    final result = await petRepository.getAllAdoptedPets();
-    verify(mockPetDao.getAllPet());
-    expect(result, equals(Right(_petList as List<PetModel>)));
   });
 }

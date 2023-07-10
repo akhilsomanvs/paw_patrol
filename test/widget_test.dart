@@ -7,24 +7,45 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 import 'package:paw_patrol/main.dart';
+import 'package:paw_patrol/views/screens/details_screen.dart';
+import 'package:paw_patrol/views/widgets/dialogs/custom_dialog_widget.dart';
+import 'package:paw_patrol/views/widgets/pet_card_widget.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group("Home screen widgets", () {
+    testWidgets('Should open the navigation drawer when tapping on the menu icon', (WidgetTester tester) async {
+      ///Needs this line to prevent network images issues
+      mockNetworkImagesFor(() async {
+        await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+        final menuIcon = find.byIcon(Icons.menu);
+        expect(menuIcon, findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+        await tester.tap(menuIcon);
+        await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+        expect(find.text('Show History'), findsOneWidget);
+      });
+    });
+    testWidgets('Should navigate to Details screen when clicking on a PetCardWidget', (WidgetTester tester) async {
+      ///Needs this line to prevent network images issues
+      mockNetworkImagesFor(() async {
+        await tester.pumpWidget(const MyApp());
+
+        await tester.pump(Duration(seconds: 2));
+
+        final petCard = find.byKey(Key("1"));
+        expect(petCard, findsOneWidget);
+
+        await tester.tap(petCard);
+        await tester.pump();
+
+        final detailsScreen = find.byType(DetailsScreen, skipOffstage: false);
+        expect(detailsScreen, findsAtLeastNWidgets(1));
+      });
+    });
   });
 }

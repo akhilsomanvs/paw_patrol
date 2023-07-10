@@ -1,8 +1,14 @@
+import 'package:paw_patrol/core/constants/data_constants.dart';
+
 import '../entities/pet_entity.dart';
 import '../db_manager.dart';
 
 abstract class PetDao {
-  Future<List<PetEntity>>? getAllPet();
+  Future<List<PetEntity>>? getAllAdoptedPets();
+
+  Future<List<PetEntity>>? getAllPets();
+
+  Future<List<PetEntity>?>? getNextPage(int page);
 
   Future<int> addNewPet(PetEntity petEntity);
 
@@ -27,7 +33,7 @@ class PetDaoImpl implements PetDao {
   }
 
   @override
-  Future<List<PetEntity>> getAllPet() async {
+  Future<List<PetEntity>> getAllAdoptedPets() async {
     List<PetEntity> modelList = [];
     List<Map<String, dynamic>> items = await _dbManager.getAllItems(_petEntityInstance.tableName);
     for (var json in items) {
@@ -47,6 +53,32 @@ class PetDaoImpl implements PetDao {
       return _getPetModelFromMap(items.first);
     }
     return null;
+  }
+
+  @override
+  Future<List<PetEntity>?>? getNextPage(int page) async {
+    //This should be fetched from the API
+    int perPageCount = 10;
+    final list = await getAllPets();
+    if (list != null) {
+      int startIndex = perPageCount * page;
+      int endIndex = (startIndex + perPageCount) - 1;
+
+      if (list.length <= startIndex) {
+        return null;
+      }
+      if (list.length <= endIndex) {
+        return null;
+      }
+
+      return list.getRange(startIndex, endIndex).toList();
+    }
+    return null;
+  }
+
+  @override
+  Future<List<PetEntity>>? getAllPets() async {
+    return DataConstants.mockPetsData;
   }
 //endregion
 }
