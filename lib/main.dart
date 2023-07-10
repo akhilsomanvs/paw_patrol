@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paw_patrol/data/local/dao/pet_dao.dart';
 import 'package:paw_patrol/data/local/db_manager.dart';
 import 'package:paw_patrol/data/local/repositories/pet_repository_impl.dart';
+import 'package:paw_patrol/data/local/sharedPrefs/secure_storage_util.dart';
 import 'package:paw_patrol/style/bloc/theme_bloc.dart';
 import 'package:paw_patrol/views/bloc/petAdoptionBloc/pet_adoption_bloc.dart';
 import 'package:paw_patrol/views/bloc/petListBloc/pet_list_bloc.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ThemeBloc>(
-          create: (BuildContext context) => ThemeBloc(),
+          create: (BuildContext context) => ThemeBloc(SecureStorageUtil.instance)..add(InitialThemeSetEvent()),
         ),
         BlocProvider<PetListBloc>(
           create: (BuildContext context) => PetListBloc(PetRepositoryImpl(PetDaoImpl(DBManager.database)))..add(PetListInitialEvent()),
