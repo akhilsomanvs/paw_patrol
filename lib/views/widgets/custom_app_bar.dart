@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paw_patrol/style/bloc/theme_bloc.dart';
 import 'package:paw_patrol/style/bloc/theme_bloc.dart';
 import 'package:paw_patrol/style/theme/app_themes.dart';
@@ -18,18 +19,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Hello, ", style: theme.textTheme.bodyLarge!.copyWith(fontSize: 22)),
-            Text("Joe", style: theme.textTheme.bodyLarge!.copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
-            const Expanded(child: SizedBox()),
-            BlocBuilder<ThemeBloc, ThemeData>(
-              builder: (context, state) {
-                return Switch(
-                    value: state == AppTheme.darkTheme,
-                    onChanged: (value) {
-                      BlocProvider.of<ThemeBloc>(context).add(ThemeSwitchEvent());
-                    });
-              },
-            )
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text("Hello, ", style: theme.textTheme.bodyLarge!.copyWith(fontSize: 22)),
+                      Text("Joe", style: theme.textTheme.bodyLarge!.copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  Text("Adopt a friend today", style: theme.textTheme.bodySmall!.copyWith(fontWeight: FontWeight.normal)),
+                ],
+              ),
+            ),
+            IconButton(onPressed: () => Scaffold.of(context).openDrawer(), icon: Icon(Icons.menu)),
           ],
         ),
       ),
@@ -37,5 +42,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => const Size.fromHeight(100);
 }

@@ -1,7 +1,15 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class SecureStorageUtil{
+class SecureStorageUtil {
   final _storage = const FlutterSecureStorage();
 
+  final String _keyIsDarkTheme = 'isDarkTheme';
 
+  setIsDarkTheme(bool value) async {
+    await _storage.write(key: _keyIsDarkTheme, value: "$value");
+  }
+
+  Future<bool> get isDarkTheme async {
+    return await _storage.read(key: _keyIsDarkTheme) == "true" ? true : false;
+  }
 }

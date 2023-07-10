@@ -6,6 +6,7 @@ import 'package:paw_patrol/views/bloc/petAdoptionBloc/pet_adoption_bloc.dart';
 import 'package:paw_patrol/views/bloc/petListBloc/pet_list_bloc.dart';
 import 'package:paw_patrol/views/screens/details_screen.dart';
 import 'package:paw_patrol/views/widgets/custom_app_bar.dart';
+import 'package:paw_patrol/views/widgets/nav_drawer.dart';
 import 'package:paw_patrol/views/widgets/pet_card_widget.dart';
 import 'package:paw_patrol/views/widgets/pet_category_widget.dart';
 
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: const CustomAppBar(),
+      drawer: NavDrawer(),
       body: SafeArea(
         child: SizedBox(
           child: Padding(
@@ -60,6 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           const SizedBox(height: 8),
+
+                          ///
+                          /// Category
+                          ///
                           SizedBox(
                             height: 140,
                             child: ListView.builder(
@@ -87,6 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           const SizedBox(height: 8),
+
+                          ///
+                          /// Pet List
+                          ///
                           Expanded(
                             flex: 1,
                             child: Builder(
