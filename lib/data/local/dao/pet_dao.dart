@@ -62,13 +62,13 @@ class PetDaoImpl implements PetDao {
     final list = await getAllPets();
     if (list != null) {
       int startIndex = perPageCount * page;
-      int endIndex = (startIndex + perPageCount) - 1;
+      int endIndex = (startIndex + perPageCount);
 
       if (list.length <= startIndex) {
         return null;
       }
       if (list.length <= endIndex) {
-        return null;
+        endIndex = list.length;
       }
 
       return list.getRange(startIndex, endIndex).toList();

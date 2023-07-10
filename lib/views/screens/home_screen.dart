@@ -24,6 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    _scrollController.addListener(() {
+      pagination();
+    });
     super.initState();
   }
 
@@ -119,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   if (petListBlocState is PetListLoaded) {
                                     final list = petListBlocState.modelList;
                                     return ListView.builder(
+                                      controller: _scrollController,
                                       itemCount: list.length,
                                       shrinkWrap: true,
                                       itemBuilder: (context, index) {
@@ -160,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void pagination() {
     if ((_scrollController.position.pixels == _scrollController.position.maxScrollExtent)) {
-
+      context.read<PetListBloc>().add(PetListNextPageEvent(0));
     }
   }
 

@@ -38,11 +38,12 @@ class PetRepositoryImpl implements PetRepository {
 
   @override
   Future<Either<Failure, List<PetModel>>> getNextPageList(int page) async {
-    List<PetModel> list = DataConstants.mockPetsData;
-
-    final _list = _petDao.getNextPage(page);
-
-    return Right(list);
+    final list = await _petDao.getNextPage(page);
+    if (list != null) {
+      return Right(list as List<PetModel>);
+    } else {
+      return const Right([]);
+    }
   }
 
   @override

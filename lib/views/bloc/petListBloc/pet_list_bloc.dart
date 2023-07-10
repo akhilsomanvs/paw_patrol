@@ -19,23 +19,24 @@ class PetListBloc extends Bloc<PetListEvent, PetListState> {
   final List<PetModel> _recommendedPetList = [];
   PetCategory currentSelected = PetCategory.All;
 
-  int currentPage = 0;
+  int currentPage = -1;
 
   PetListBloc(this._petRepository) : super(PetListInitialState()) {
     on<PetListInitialEvent>((event, emit) async {
       currentSelected = PetCategory.All;
       emit(PetListLoading());
-      final result = await _petRepository.getAllPets();
-      result.fold(
-        (left) {
-          emit(PetListError());
-        },
-        (petList) {
-          _petList.addAll(petList);
-          _setCurrentList(_petList);
-          _emitLoadedState(emit, _petList);
-        },
-      );
+      add(PetListNextPageEvent(0));
+      // final result = await _petRepository.getAllPets();
+      // result.fold(
+      //   (left) {
+      //     emit(PetListError());
+      //   },
+      //   (petList) {
+      //     _petList.addAll(petList);
+      //     _setCurrentList(_petList);
+      //     _emitLoadedState(emit, _petList);
+      //   },
+      // );
     });
 
     on<PetListCategoryEvent>((event, emit) async {
@@ -55,16 +56,19 @@ class PetListBloc extends Bloc<PetListEvent, PetListState> {
     });
 
     on<PetListNextPageEvent>((event, emit) async {
-      final result = await _petRepository.getNextPageList(++currentPage);
-      result.fold(
-        (error) {
-          emit(PetListError());
-        },
-        (list) {
-          // _petList.addAll(list);
-          // _emitLoadedState(emit, _petList);
-        },
-      );
+      if (currentSelected == PetCategory.All) {
+        final result = await _petRepository.getNextPageList(++currentPage);
+        result.fold(
+          (error) {
+            _emitLoadedState(emit, _petList);
+          },
+          (list) {
+            _petList.addAll(list);
+            _setCurrentList(_petList);
+            _emitLoadedState(emit, _petList);
+          },
+        );
+      } else {}
     });
   }
 
