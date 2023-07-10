@@ -1,16 +1,19 @@
-# paw_patrol
+# Paw Patrol
 
-A new Flutter project.
+A UI sample created in flutter
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Screens
+1. Home Screen
+   a. Shows the list of the pets available.
+   b. List can be filtered by searching the name for the pet or by clicking on the category tiles.
+   c. A pet can be adopted by clicking on the 'Adopt' button against each pet in the list.
+   d. If the pet is already adopted then the button will not be shown, and a 'Adopted badge will be shown over the Pet'.
+   e. Details of a pet can be seen by clicking on a pet item in the list
+   f. Theme of the app can be changed from the navigation menu. Navigation drawer can be opened by tapping on the menu icon at the top right.
+   g. Adoption history can be seen by clicking on the 'Show History' in the navigation drawer. 
+2. Details Screen
+   a. Shows the details of the pet.
+   b. When clicking on the image, the app will navigate to another screen where the image can be interacted with.
+   c. The pet can be adopted by clicking on the 'Adopt' button at the bottom.
+3. History Screen
+   a. Shows the list of all adopted pets 
