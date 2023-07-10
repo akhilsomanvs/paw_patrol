@@ -13,6 +13,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeData> {
   bool isDark = false;
 
   ThemeBloc(this._storageUtil) : super(AppTheme.lightTheme) {
+
     on<InitialThemeSetEvent>((event, emit) async {
       isDark = await _storageUtil.isDarkTheme;
       if (isDark) {
@@ -21,6 +22,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeData> {
         emit(AppTheme.lightTheme);
       }
     });
+
     on<ThemeSwitchEvent>((event, emit) async {
       isDark = !isDark;
       await _storageUtil.setIsDarkTheme(isDark);

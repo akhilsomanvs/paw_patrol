@@ -47,14 +47,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 listener: (context, state) {
                   if (state is PetAdoptedState) {
                     final petModel = state.petModel;
-                    showDialog(
-                      context: context,
-                      builder: (context) => CustomDialogBox(
-                        title: 'Success',
-                        descriptions: "You've now adopted ${petModel.name}",
-                        onOkTap: () {},
-                      ),
-                    );
+                    if (state.tag == "HomeScreen") {
+                      showDialog(
+                        context: context,
+                        builder: (context) => CustomDialogBox(
+                          title: 'Success',
+                          descriptions: "You've now adopted ${petModel.name}",
+                          onOkTap: () {},
+                        ),
+                      );
+                    }
                   } else if (state is PetAdoptionLoadingState) {}
                 },
                 child: BlocBuilder<PetAdoptionBloc, PetAdoptionState>(
@@ -136,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             _navigateToDetails(context, model);
                                           },
                                           onAdoptTap: (model) {
-                                            context.read<PetAdoptionBloc>().add(AdoptPetEvent(petModel));
+                                            context.read<PetAdoptionBloc>().add(AdoptPetEvent(petModel, tag: "HomeScreen"));
                                           },
                                           isAdopted: context.read<PetAdoptionBloc>().isAdopted(petModel),
                                         );

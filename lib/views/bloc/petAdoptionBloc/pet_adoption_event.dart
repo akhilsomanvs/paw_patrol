@@ -5,8 +5,9 @@ abstract class PetAdoptionEvent {}
 
 class AdoptPetEvent extends PetAdoptionEvent {
   final PetModel petModel;
+  final String tag;
 
-  AdoptPetEvent(this.petModel);
+  AdoptPetEvent(this.petModel, {this.tag = ""});
 }
 
 class ClearAdoptionListEvent extends PetAdoptionEvent {}

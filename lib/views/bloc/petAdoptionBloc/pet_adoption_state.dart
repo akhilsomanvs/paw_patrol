@@ -11,8 +11,9 @@ class PetAdoptionErrorState extends PetAdoptionState {}
 
 class PetAdoptedState extends PetAdoptionState {
   final PetModel petModel;
+  final String tag;
 
-  PetAdoptedState(this.petModel);
+  PetAdoptedState(this.petModel, {this.tag = ""});
 }
 
 class PetAlreadyAdoptedState extends PetAdoptionState {

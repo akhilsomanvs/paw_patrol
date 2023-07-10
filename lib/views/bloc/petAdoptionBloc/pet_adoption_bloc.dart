@@ -15,8 +15,9 @@ class PetAdoptionBloc extends Bloc<PetAdoptionEvent, PetAdoptionState> {
     on<AdoptPetEvent>((event, emit) async {
       emit(PetAdoptionLoadingState());
       final petModel = event.petModel;
+      final tag = event.tag;
       final id = await _petRepository.adoptPet(petModel);
-      emit(PetAdoptedState(petModel));
+      emit(PetAdoptedState(petModel, tag: tag));
       add(GetAdoptionListEvent());
     });
 

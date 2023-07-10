@@ -176,17 +176,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     child: BlocListener<PetAdoptionBloc, PetAdoptionState>(
                       listener: (context, state) {
                         if (state is PetAdoptedState) {
-                          showDialog(
-                            context: context,
-                            builder: (context) => CustomDialogBox(
-                              title: 'Success',
-                              descriptions: "You've now adopted ${widget.petModel.name}",
-                              onOkTap: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          );
-                        } else if (state is PetAdoptionLoadingState) {}
+                          if (mounted) {
+                            showDialog(
+                              context: context,
+                              builder: (context) => CustomDialogBox(
+                                title: 'Success',
+                                descriptions: "You've now adopted ${widget.petModel.name}",
+                                onOkTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            );
+                          } else if (state is PetAdoptionLoadingState) {}
+                        }
                       },
                       child: SizedBox(
                         width: double.infinity,
