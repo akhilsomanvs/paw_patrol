@@ -376,7 +376,7 @@ class DataConstants {
       "price": 90,
       "character": "Ruby is a playful and friendly dog. She loves running in the park and playing fetch with her favorite toy.",
       "species": "dog",
-      "imageURL": "https://example.com/ruby.jpg",
+      "imageURL": "https://images.squarespace-cdn.com/content/v1/5c336783f2e6b11a9d3b5693/1579731339862-TKBNEE4YE6M97QKGDUAD/chapter_giggles-1681-Edit.jpg?format=750w",
       "sex": "female",
       "color": "brown"
     }),
@@ -387,7 +387,7 @@ class DataConstants {
       "price": 50,
       "character": "Misty is a curious and independent cat. She enjoys exploring her surroundings and napping in cozy spots.",
       "species": "cat",
-      "imageURL": "https://example.com/misty.jpg",
+      "imageURL": "https://markhewitson.photography/wp-content/uploads/2020/04/Cat-Photography-by-Mark-Hewitson-Photography-Thame-Oxfordshire-3-600x480.jpg",
       "sex": "female",
       "color": "gray"
     }),
@@ -398,7 +398,7 @@ class DataConstants {
       "price": 25,
       "character": "Nemo is a vibrant and active fish. He loves swimming among colorful coral and exploring the ocean floor.",
       "species": "fish",
-      "imageURL": "https://example.com/nemo.jpg",
+      "imageURL": "https://inspgr.id/app/uploads/2013/11/fish-photography-10.jpg",
       "sex": "male",
       "color": "orange"
     }),
@@ -409,7 +409,7 @@ class DataConstants {
       "price": 75,
       "character": "Cocoa is a friendly and playful rabbit. She enjoys hopping around and nibbling on fresh greens.",
       "species": "rabbit",
-      "imageURL": "https://example.com/cocoa.jpg",
+      "imageURL": "https://www.rd.com/wp-content/uploads/2020/04/GettyImages-694542042-e1586274805503-scaled.jpg?resize=768,513",
       "sex": "female",
       "color": "brown"
     }),
@@ -420,7 +420,7 @@ class DataConstants {
       "price": 150,
       "character": "Rocky is an adventurous and loyal dog. He loves going on long hikes and exploring the great outdoors.",
       "species": "dog",
-      "imageURL": "https://example.com/rocky.jpg",
+      "imageURL": "https://images.squarespace-cdn.com/content/v1/5c336783f2e6b11a9d3b5693/1577151939934-KQWV0Q7ZKGQZ17OUOU1W/border-terrier-dog-catching-treat.jpg?format=750w",
       "sex": "male",
       "color": "black"
     }),
@@ -431,7 +431,7 @@ class DataConstants {
       "price": 60,
       "character": "Luna is a graceful and affectionate cat. She enjoys lounging by the window and observing the world outside.",
       "species": "cat",
-      "imageURL": "https://example.com/luna.jpg",
+      "imageURL": "https://markhewitson.photography/wp-content/uploads/2020/11/Cat-Photography-by-Mark-Hewitson-Photography-4-600x600.jpg",
       "sex": "female",
       "color": "white"
     }),
@@ -442,7 +442,7 @@ class DataConstants {
       "price": 40,
       "character": "Bubbles is a friendly and sociable goldfish. She loves swimming with other fish and exploring her tank.",
       "species": "fish",
-      "imageURL": "https://example.com/bubbles.jpg",
+      "imageURL": "https://inspgr.id/app/uploads/2013/11/fish-photography-02.jpg",
       "sex": "female",
       "color": "gold"
     }),
@@ -453,7 +453,7 @@ class DataConstants {
       "price": 70,
       "character": "Hazel is a playful and curious rabbit. She enjoys hopping around and digging in her burrow.",
       "species": "rabbit",
-      "imageURL": "https://example.com/hazel.jpg",
+      "imageURL": "https://www.rd.com/wp-content/uploads/2020/04/GettyImages-153016104-e1586356775279-scaled.jpg?resize=768,512",
       "sex": "female",
       "color": "gray"
     }),
@@ -464,7 +464,7 @@ class DataConstants {
       "price": 120,
       "character": "Charlie is an energetic and intelligent dog. He loves learning new tricks and going for long runs.",
       "species": "dog",
-      "imageURL": "https://example.com/charlie.jpg",
+      "imageURL": "https://images.squarespace-cdn.com/content/v1/5c336783f2e6b11a9d3b5693/1610407127560-M1Z8U6J5AL9IO1AM9KMX/poodel_black_tongue_out_close_up.jpg?format=750w",
       "sex": "male",
       "color": "brown"
     }),
@@ -475,7 +475,7 @@ class DataConstants {
       "price": 55,
       "character": "Milo is a mischievous and playful cat. He loves chasing toy mice and climbing up high surfaces.",
       "species": "cat",
-      "imageURL": "https://example.com/milo.jpg",
+      "imageURL": "https://markhewitson.photography/wp-content/uploads/2020/11/Cat-Photography-by-Mark-Hewitson-Photography-3-600x600.jpg",
       "sex": "male",
       "color": "tabby"
     }),
@@ -486,7 +486,7 @@ class DataConstants {
       "price": 30,
       "character": "Goldie is a cheerful and lively goldfish. She brings color and joy to any aquarium she swims in.",
       "species": "fish",
-      "imageURL": "https://example.com/goldie.jpg",
+      "imageURL": "https://inspgr.id/app/uploads/2013/11/fish-photography-01.jpg",
       "sex": "female",
       "color": "orange"
     }),
@@ -497,7 +497,7 @@ class DataConstants {
       "price": 90,
       "character": "Buddy is a friendly and loyal dog. He enjoys playing fetch and going for long walks with his human companion.",
       "species": "dog",
-      "imageURL": "https://example.com/buddy.jpg",
+      "imageURL": "https://images.squarespace-cdn.com/content/v1/5c336783f2e6b11a9d3b5693/1577151944821-RPV4DFG5LDKGEJAXRJFS/British-bulldog-white-portrait--underbite.jpg?format=750w",
       "sex": "male",
       "color": "golden"
     }),
@@ -508,7 +508,7 @@ class DataConstants {
       "price": 60,
       "character": "Mittens is a graceful and independent cat. She enjoys exploring her surroundings and sunbathing by the window.",
       "species": "cat",
-      "imageURL": "https://example.com/mittens.jpg",
+      "imageURL": "https://markhewitson.photography/wp-content/uploads/2020/11/Cat-Photography-by-Mark-Hewitson-Photography-8-600x480.jpg",
       "sex": "female",
       "color": "black and white"
     }),
@@ -519,7 +519,7 @@ class DataConstants {
       "price": 25,
       "character": "Coral is a colorful and lively fish. She adds vibrancy and beauty to any aquarium.",
       "species": "fish",
-      "imageURL": "https://example.com/coral.jpg",
+      "imageURL": "https://inspgr.id/app/uploads/2013/11/fish-photography-04.jpg",
       "sex": "female",
       "color": "purple"
     }),
@@ -530,7 +530,7 @@ class DataConstants {
       "price": 80,
       "character": "Oliver is a friendly and playful rabbit. He loves hopping around and enjoys gentle head rubs.",
       "species": "rabbit",
-      "imageURL": "https://example.com/oliver.jpg",
+      "imageURL": "https://www.rd.com/wp-content/uploads/2021/04/GettyImages-476744133-scaled.jpg?resize=696,463",
       "sex": "male",
       "color": "brown"
     }),
@@ -541,7 +541,7 @@ class DataConstants {
       "price": 150,
       "character": "Daisy is a gentle and loving dog. She enjoys spending time with her family and going for leisurely walks.",
       "species": "dog",
-      "imageURL": "https://example.com/daisy.jpg",
+      "imageURL": "https://images.squarespace-cdn.com/content/v1/5c336783f2e6b11a9d3b5693/1651854393333-3KKWXLZLKIPT8SV5PJ1L/english-bulldog-portrait-vancouver.jpg?format=750w",
       "sex": "female",
       "color": "white"
     }),
@@ -552,7 +552,7 @@ class DataConstants {
       "price": 60,
       "character": "Whiskers is a curious and playful cat. He loves chasing laser pointers and lounging in sunny spots.",
       "species": "cat",
-      "imageURL": "https://example.com/whiskers.jpg",
+      "imageURL": "https://markhewitson.photography/wp-content/uploads/2020/11/Cat-Photography-by-Mark-Hewitson-Photography-5-600x600.jpg",
       "sex": "male",
       "color": "gray"
     }),
@@ -563,7 +563,7 @@ class DataConstants {
       "price": 30,
       "character": "Nemo Jr. is a lively and colorful fish. He adds charm and liveliness to any aquarium.",
       "species": "fish",
-      "imageURL": "https://example.com/nemojr.jpg",
+      "imageURL": "https://inspgr.id/app/uploads/2013/11/fish-photography-05.jpg",
       "sex": "male",
       "color": "blue"
     }),
@@ -574,7 +574,7 @@ class DataConstants {
       "price": 70,
       "character": "Hopper is an energetic and curious rabbit. He loves exploring his surroundings and hopping in wide open spaces.",
       "species": "rabbit",
-      "imageURL": "https://example.com/hopper.jpg",
+      "imageURL": "https://www.rd.com/wp-content/uploads/2021/04/GettyImages-1161350775-scaled.jpg?resize=696,464",
       "sex": "male",
       "color": "white"
     }),
@@ -585,7 +585,8 @@ class DataConstants {
       "price": 120,
       "character": "Bella is a loving and loyal dog. She enjoys cuddling and going on long walks with her human companion.",
       "species": "dog",
-      "imageURL": "https://example.com/bella.jpg",
+      "imageURL":
+          "https://images.squarespace-cdn.com/content/v1/5c336783f2e6b11a9d3b5693/1577151974328-M5MG3HLISP2I33MI0E9F/hungarian-puli-black-grey-tongue-out-portrait-photography-studio.jpg?format=1000w",
       "sex": "female",
       "color": "brown"
     }),
@@ -596,7 +597,7 @@ class DataConstants {
       "price": 60,
       "character": "Misty is a graceful and elegant cat. She loves lounging on comfortable surfaces and being admired.",
       "species": "cat",
-      "imageURL": "https://example.com/misty2.jpg",
+      "imageURL": "https://markhewitson.photography/wp-content/uploads/2020/11/Cat-Photography-by-Mark-Hewitson-Photography-6-600x600.jpg",
       "sex": "female",
       "color": "white"
     }),
@@ -607,7 +608,7 @@ class DataConstants {
       "price": 25,
       "character": "Finley is a lively and curious fish. He enjoys exploring his aquarium and swimming among vibrant plants.",
       "species": "fish",
-      "imageURL": "https://example.com/finley2.jpg",
+      "imageURL": "https://inspgr.id/app/uploads/2013/11/fish-photography-06.jpg",
       "sex": "male",
       "color": "red"
     }),
@@ -618,7 +619,7 @@ class DataConstants {
       "price": 70,
       "character": "Coco is a playful and energetic rabbit. She loves hopping around and enjoys playing with her favorite toys.",
       "species": "rabbit",
-      "imageURL": "https://example.com/coco2.jpg",
+      "imageURL": "https://www.rd.com/wp-content/uploads/2020/04/GettyImages-492362561-e1586268905784-scaled.jpg?resize=768,512",
       "sex": "female",
       "color": "black"
     }),
@@ -629,7 +630,7 @@ class DataConstants {
       "price": 110,
       "character": "Max is a friendly and active dog. He enjoys playing fetch and going for runs in the park.",
       "species": "dog",
-      "imageURL": "https://example.com/max2.jpg",
+      "imageURL": "https://images.squarespace-cdn.com/content/v1/5c336783f2e6b11a9d3b5693/1598555151631-507ZKCS3EHW5XR1DD7B0/Pitbull_brown_white_full_body_portrait_photography.jpg?format=750w",
       "sex": "male",
       "color": "brown"
     }),
@@ -640,7 +641,7 @@ class DataConstants {
       "price": 60,
       "character": "Luna is a gentle and affectionate cat. She loves cuddling and being a companion to her human friends.",
       "species": "cat",
-      "imageURL": "https://example.com/luna2.jpg",
+      "imageURL": "https://markhewitson.photography/wp-content/uploads/2020/04/Cat-Photography-by-Mark-Hewitson-Photography-7-600x480.jpg",
       "sex": "female",
       "color": "gray"
     }),
@@ -651,7 +652,7 @@ class DataConstants {
       "price": 30,
       "character": "Bubbles is a vibrant and lively fish. He adds color and joy to any aquarium he swims in.",
       "species": "fish",
-      "imageURL": "https://example.com/bubbles2.jpg",
+      "imageURL": "https://inspgr.id/app/uploads/2013/11/fish-photography-07.jpg",
       "sex": "male",
       "color": "orange"
     }),
@@ -662,7 +663,7 @@ class DataConstants {
       "price": 80,
       "character": "Cotton is a friendly and playful rabbit. He enjoys hopping around and being a cuddly companion.",
       "species": "rabbit",
-      "imageURL": "https://example.com/cotton2.jpg",
+      "imageURL": "https://www.rd.com/wp-content/uploads/2021/04/GettyImages-915092866-scaled.jpg?resize=696,696",
       "sex": "male",
       "color": "white"
     }),
@@ -673,7 +674,8 @@ class DataConstants {
       "price": 120,
       "character": "Bailey is a loyal and intelligent dog. She enjoys learning new tricks and being a reliable companion.",
       "species": "dog",
-      "imageURL": "https://example.com/bailey.jpg",
+      "imageURL":
+          "https://images.squarespace-cdn.com/content/v1/5c336783f2e6b11a9d3b5693/1623525707890-BD5SHVA680PAC1F4OP35/doberman-pinscher-portrait-photo-by-jane-thomson-photography-dog-in-vancouver.jpg?format=750w",
       "sex": "female",
       "color": "golden"
     }),
@@ -684,7 +686,7 @@ class DataConstants {
       "price": 50,
       "character": "Whiskers is a curious and playful cat. He loves exploring new places and chasing after toys.",
       "species": "cat",
-      "imageURL": "https://example.com/whiskers2.jpg",
+      "imageURL": "https://markhewitson.photography/wp-content/uploads/2020/11/Cat-Photography-by-Mark-Hewitson-Photography-1-600x480.jpg",
       "sex": "male",
       "color": "black"
     }),
@@ -695,7 +697,7 @@ class DataConstants {
       "price": 35,
       "character": "Sunny is a bright and lively fish. He adds warmth and color to any aquarium.",
       "species": "fish",
-      "imageURL": "https://example.com/sunny.jpg",
+      "imageURL": "https://inspgr.id/app/uploads/2013/11/fish-photography-03.jpg",
       "sex": "male",
       "color": "yellow"
     }),
